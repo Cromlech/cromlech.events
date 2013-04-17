@@ -1,3 +1,4 @@
 # -*- coding: utf-8 -*-
 
-from cromlech.events import interfaces
+from cromlech.events.interfaces import *
+from cromlech.events.components import *

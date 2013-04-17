@@ -67,3 +67,22 @@ class ObjectMovedEvent(ObjectAddedEvent):
         ObjectAddedEvent.__init__(self, object, newParent, newName)
         self.oldParent = oldParent
         self.oldName = oldName
+
+
+@implementer(interfaces.IObjectRemovedEvent)
+class ObjectRemovedEvent(ObjectEvent):
+    """An object has been removed.
+    """
+    def __init__(self, object, oldParent, oldName):
+        ObjectEvent.__init__(self, object)
+        self.oldParent = oldParent
+        self.oldName = oldName
+
+
+__all__ = ['Attributes',
+           'ObjectCreatedEvent',
+           'ObjectAddedEvent',
+           'ObjectModifiedEvent',
+           'ObjectCopiedEvent',
+           'ObjectMovedEvent',
+           'ObjectRemovedEvent']

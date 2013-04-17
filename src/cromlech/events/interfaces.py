@@ -47,6 +47,13 @@ class IObjectModifiedEvent(IObjectEvent):
     """
 
 
-class IObjectRemovedEvent(IObjectMovedEvent):
+class IObjectRemovedEvent(IObjectEvent):
     """An object has been removed from a container.
     """
+    oldParent = Attribute("The old location parent for the object.")
+    oldName = Attribute("The old location name for the object.")
+    
+
+__all__ = ['IModifications', 'IAttributes', 'IObjectCreatedEvent',
+           'IObjectAddedEvent', 'IObjectMovedEvent', 'IObjectCopiedEvent',
+           'IObjectModifiedEvent', 'IObjectRemovedEvent']
