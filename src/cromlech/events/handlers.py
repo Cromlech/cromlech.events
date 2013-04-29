@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from functools import partial
 from crom import subscription, sources, target
 from zope.event import subscribers as event_subscribers
 from zope.interface import Interface
@@ -12,8 +11,9 @@ def dispatch(*events):
         sub(*events)
 
 
-if dispatch not in event_subscribers:
-    event_subscribers.append(dispatch)
+def setup_dispatcher():
+    if dispatch not in event_subscribers:
+        event_subscribers.append(dispatch)
 
 
 @subscription
