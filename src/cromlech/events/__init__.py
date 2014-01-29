@@ -1,3 +1,4 @@
 # -*- coding: utf-8 -*-
 
-from cromlech.events.handlers import setup_dispatcher
+from .handlers import setup_dispatcher
+from .components import *
