@@ -10,12 +10,14 @@ def text(path):
     return text
 
 version = '0.1'
-readme = text(os.path.join('src', 'cromlech', 'events', 'README.txt'))
+readme = text(os.path.join('README.txt'))
 history = text(os.path.join('docs', 'HISTORY.txt'))
 
 install_requires = [
+    'crom',
     'setuptools',
     'zope.interface',
+    'zope.events',
     ]
 
 tests_require = [

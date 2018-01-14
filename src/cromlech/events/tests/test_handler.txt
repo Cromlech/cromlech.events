@@ -1,0 +1,80 @@
+cromlech.events
+***************
+
+First setup the crom machinery:
+
+  >>> from crom import testing
+  >>> testing.setup()
+
+Grok the package:
+
+  >>> import crom
+  >>> import cromlech.events
+  >>> crom.configure(cromlech.events)
+
+At this point, no dispatcher is active:
+
+  >>> from zope.event import subscribers as event_subscribers
+  >>> event_subscribers
+  []
+
+In order for the event dispatcher to be active, we need to set it up:
+
+  >>> cromlech.events.setup_dispatcher()
+
+It should now be added to the list of event dispatchers:
+
+  >>> event_subscribers
+  [<function dispatch at ...>]
+
+
+Simple events
+-------------
+
+Simple event handlers are subscribers registered for the event object.
+
+  >>> class Event:
+  ...     pass
+
+  >>> def event_handler(event):
+  ...     print("I handle:", event)
+
+  >>> from zope.interface import Interface
+  >>> crom.implicit.registry.subscribe((Event,), Interface, event_handler)
+
+if we notify of an event, the handler is woken:
+
+  >>> from zope.event import notify
+  >>> notify(Event())
+  I handle: <__main__.Event object at ...>
+
+
+Object events
+-------------
+
+Object events are specialized event that are processed twice.
+They first are picked by the `cromlech.events.objectEventNotify` subscriber
+that will call event handlers registered specifically for the object
+referenced in the event:
+
+  >>> from zope.interface.interfaces import ObjectEvent
+  >>> my_object = object()
+
+
+The previous handler won't be called for this case:
+
+  >>> notify(ObjectEvent(my_object))
+
+Let's register a specialized object event handler:
+
+  >>> def object_event_handler(obj, event):
+  ...     print("I handle %r for the object %r" % (event, obj))
+
+  >>> crom.implicit.registry.subscribe(
+  ...     (Interface, ObjectEvent), Interface, object_event_handler)
+
+
+Notifying will now yield the awaited result:
+
+  >>> notify(ObjectEvent(my_object))
+  I handle <zope.interface.interfaces.ObjectEvent ...> for the object <object object at ...>
