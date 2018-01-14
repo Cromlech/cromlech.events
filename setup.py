@@ -17,7 +17,7 @@ install_requires = [
     'crom',
     'setuptools',
     'zope.interface',
-    'zope.events',
+    'zope.event',
     ]
 
 tests_require = [
