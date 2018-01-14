@@ -9,7 +9,7 @@ def text(path):
         text = f.read()
     return text
 
-version = '0.1'
+version = '0.2.dev0'
 readme = text(os.path.join('README.txt'))
 history = text(os.path.join('docs', 'HISTORY.txt'))
 
