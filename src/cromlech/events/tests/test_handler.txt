@@ -78,3 +78,16 @@ Notifying will now yield the awaited result:
 
   >>> notify(ObjectEvent(my_object))
   I handle <zope.interface.interfaces.ObjectEvent ...> for the object <object object at ...>
+
+
+Removing the dispatcher
+-----------------------
+
+The package provides a very simple teardown method, to unset the
+event dispatcher:
+
+  >>> cromlech.events.teardown_dispatcher()
+
+Once done, the dispatch is unplugged:
+
+  >>> notify(ObjectEvent(my_object))
