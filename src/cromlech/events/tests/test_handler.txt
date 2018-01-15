@@ -40,7 +40,8 @@ Simple event handlers are subscribers registered for the event object.
   ...     print("I handle:", event)
 
   >>> from zope.interface import Interface
-  >>> crom.implicit.registry.subscribe((Event,), Interface, event_handler)
+  >>> crom.implicit.registry.subscribe(
+  ...    (Event,), cromlech.events.IEventHandler, event_handler)
 
 if we notify of an event, the handler is woken:
 
@@ -71,7 +72,8 @@ Let's register a specialized object event handler:
   ...     print("I handle %r for the object %r" % (event, obj))
 
   >>> crom.implicit.registry.subscribe(
-  ...     (Interface, ObjectEvent), Interface, object_event_handler)
+  ...     (Interface, ObjectEvent), cromlech.events.IEventHandler,
+  ...     object_event_handler)
 
 
 Notifying will now yield the awaited result:

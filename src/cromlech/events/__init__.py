@@ -6,8 +6,13 @@ from zope.interface import Interface
 from zope.interface.interfaces import IObjectEvent
 
 
+class IEventHandler(Interface):
+    """Marker interface for event handlers.
+    """
+
+
 def dispatch(*events):
-    for sub in Interface.subscription(*events):
+    for sub in IEventHandler.subscription(*events):
         sub(*events)
 
 
@@ -23,9 +28,9 @@ def teardown_dispatcher():
 
 @subscription
 @sources(IObjectEvent)
-@target(Interface)
+@target(IEventHandler)
 def objectEventNotify(event):
     """Dispatch ObjectEvents to interested adapters.
     """
-    for handler in Interface.subscription(event.object, event):
+    for handler in IEventHandler.subscription(event.object, event):
         handler(event.object, event)
