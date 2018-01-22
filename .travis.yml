@@ -9,9 +9,8 @@ python:
 
 install:
   - pip install -U pip setuptools
-  - pip install -U pytest
   - pip install -r requirements.txt
-  - pip install -U -e ".[test]"
+  - pip install -e ".[test]"
 
 script:
   - pytest src --doctest-modules
